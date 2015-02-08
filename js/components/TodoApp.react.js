@@ -25,7 +25,7 @@ var AltTodoStore = require('app/stores/AltTodoStore');
 function getTodoState() {
   return {
     allTodos: AltTodoStore.getAll(),
-    areAllComplete: TodoStore.areAllComplete()
+    areAllComplete: AltTodoStore.areAllComplete()
   };
 }
 

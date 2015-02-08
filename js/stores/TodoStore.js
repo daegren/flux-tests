@@ -79,19 +79,6 @@ function destroyCompleted() {
 var TodoStore = assign({}, EventEmitter.prototype, {
 
   /**
-   * Tests whether all the remaining TODO items are marked as completed.
-   * @return {boolean}
-   */
-  areAllComplete: function() {
-    for (var id in _todos) {
-      if (!_todos[id].complete) {
-        return false;
-      }
-    }
-    return true;
-  },
-
-  /**
    * Get the entire collection of TODOs.
    * @return {object}
    */

@@ -25,6 +25,18 @@ class AltTodoStore {
       return todos[todo];
     });
   }
+
+  /**
+   * Tests whether all the remaining TODO items are marked as completed.
+   * @return {boolean}
+   */
+  static areAllComplete() {
+    var todos = this.getAll();
+    todos.forEach(function(todo) {
+      if (!todo.complete) { return false; }
+    });
+    return true;
+  }
 }
 
 module.exports = alt.createStore(AltTodoStore);
