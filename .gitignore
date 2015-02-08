@@ -1,0 +1,5 @@
+!node_moudles/app
+node_modules/*
+
+js/bootstrap.js
+public

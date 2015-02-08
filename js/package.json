@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
+  },
+  "jest": {
+    "scriptPreprocessor": "../preprocessor.js",
+    "unmockedModulePathPatterns": ["../node_modules/react"]
+  }
+}
