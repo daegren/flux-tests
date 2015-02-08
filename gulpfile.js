@@ -39,41 +39,22 @@ var bundleLogger = function(task) {
   };
 };
 
-var bundler = browserify({
-  // Required watchify args
-  cache: {}, packageCache: {}, fullPaths: true,
-  // Specify the entry point of your app
-  entries: ['./js/app.js'],
-});
+var bundler = watchify(browserify('./js/app.js', watchify.args));
+bundler.transform(reactify);
 
-var bundle = function() {
-  // Log when bundling starts
+gulp.task('js', bundle);
+bundler.on('update', bundle);
+
+function bundle() {
   var logger = new bundleLogger('browserify');
   logger.start();
 
-  return bundler
-    .transform(reactify)
-    .bundle()
-    // Report compile errors
-    .on('error', handleErrors)
-    // Use vinyl-source-stream to make the
-    // stream gulp compatible. Specifiy the
-    // desired output filename here.
+  return bundler.bundle()
+    .on('error', handleErrors)//gutil.log.bind(gutil, 'Browserify Error'))
     .pipe(source('bootstrap.js'))
-    // uglify if compress is set
     .pipe(buffer())
-    // Specify the output destination
     .pipe(gulp.dest('./js'))
-    // Log when bundling completes!
     .on('end', logger.end);
-};
+}
 
-gulp.task('dev', function() {
-  bundler = watchify(bundler);
-    // Rebundle with watchify on changes.
-  bundler.on('update', bundle);
-
-  return bundle();
-});
-
-gulp.task('default', ["dev"]);
+gulp.task('default', ['js']);
