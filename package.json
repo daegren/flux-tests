@@ -1,13 +1,14 @@
 {
   "private": true,
   "dependencies": {
+    "alt": "^0.12.0",
+    "flux": "^2.0.1",
+    "keymirror": "~0.1.0",
+    "object-assign": "^1.0.0",
     "react": "^0.12.2",
     "react-tools": "^0.12.2",
     "todomvc-app-css": "^1.0.0",
-    "todomvc-common": "^1.0.0",
-    "flux": "^2.0.1",
-    "keymirror": "~0.1.0",
-    "object-assign": "^1.0.0"
+    "todomvc-common": "^1.0.0"
   },
   "devDependencies": {
     "browserify": "^8.1.3",
