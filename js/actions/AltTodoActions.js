@@ -3,7 +3,8 @@ var alt = require('app/lib/alt');
 
 var AltTodoActions = class AltTodoActions {
   constructor() {
-    this.generateActions('create', 'updateText', 'toggleCompleteAll', 'destroy');
+    this.generateActions('create', 'updateText', 'toggleCompleteAll', 'destroy',
+      'destroyCompleted');
   }
 
   toggleComplete(todo) {
