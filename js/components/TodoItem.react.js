@@ -10,6 +10,7 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var TodoActions = require('../actions/TodoActions');
+var AltTodoActions = require('app/actions/AltTodoActions');
 var TodoTextInput = require('./TodoTextInput.react');
 
 var cx = require('react/lib/cx');
@@ -86,7 +87,7 @@ var TodoItem = React.createClass({
    * @param  {string} text
    */
   _onSave: function(text) {
-    TodoActions.updateText(this.props.todo.id, text);
+    AltTodoActions.updateText({id: this.props.todo.id, updatedText: text});
     this.setState({isEditing: false});
   },
 

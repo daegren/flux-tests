@@ -5,18 +5,33 @@ var AltTodoActions = require('app/actions/AltTodoActions');
 class AltTodoStore {
   constructor() {
     this.bindAction(AltTodoActions.create, this.onCreate);
+    this.bindAction(AltTodoActions.updateText, this.onUpdateText);
 
     this.todos = {};
   }
 
   onCreate(text) {
+    text = text.trim();
     console.log('Alt: TodoStore.onCreate: ', text);
+    if (!this._validText(text)) { return false; }
     var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
     this.todos[id] = {
       id: id,
       complete: false,
       text: text
     };
+  }
+
+  onUpdateText( { id, updatedText} ) {
+    console.log('Alt: TodoStore.onUpdateText: ', id, updatedText);
+    updatedText = updatedText.trim();
+    if (!this._validText(updatedText)) { return false; }
+
+    this.todos[id].text = updatedText;
+  }
+
+  _validText(text) {
+    return (text !== '');
   }
 
   static getAll() {
