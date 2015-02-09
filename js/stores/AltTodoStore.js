@@ -2,10 +2,13 @@
 var alt = require('app/lib/alt');
 var AltTodoActions = require('app/actions/AltTodoActions');
 
+var assign = require('object-assign');
+
 class AltTodoStore {
   constructor() {
     this.bindAction(AltTodoActions.create, this.onCreate);
     this.bindAction(AltTodoActions.updateText, this.onUpdateText);
+    this.bindAction(AltTodoActions.toggleComplete, this.onToggleComplete);
 
     this.todos = {};
   }
@@ -27,7 +30,15 @@ class AltTodoStore {
     updatedText = updatedText.trim();
     if (!this._validText(updatedText)) { return false; }
 
-    this.todos[id].text = updatedText;
+    this._update(id, {text: updatedText});
+  }
+
+  onToggleComplete( { id, complete } ) {
+    this._update(id, {complete: complete});
+  }
+
+  _update(id, updates) {
+    this.todos[id] = assign({}, this.todos[id], updates);
   }
 
   _validText(text) {

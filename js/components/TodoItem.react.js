@@ -73,7 +73,7 @@ var TodoItem = React.createClass({
   },
 
   _onToggleComplete: function() {
-    TodoActions.toggleComplete(this.props.todo);
+    AltTodoActions.toggleComplete(this.props.todo);
   },
 
   _onDoubleClick: function() {

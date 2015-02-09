@@ -1,7 +1,19 @@
+/* jshint esnext:true */
 var alt = require('app/lib/alt');
 
-var AltTodoActions = function() {
-  this.generateActions('create', 'updateText');
+var AltTodoActions = class AltTodoActions {
+  constructor() {
+    this.generateActions('create', 'updateText');
+  }
+
+  toggleComplete(todo) {
+    var id = todo.id;
+    if (todo.complete) {
+      this.dispatch({id: id, complete: false});
+    } else {
+      this.dispatch({id: id, complete: true});
+    }
+  }
 };
 
 module.exports = alt.createActions(AltTodoActions);
