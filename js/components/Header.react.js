@@ -8,7 +8,6 @@
  */
 
 var React = require('react');
-var TodoActions = require('../actions/TodoActions');
 var AltTodoActions = require('app/actions/AltTodoActions');
 var TodoTextInput = require('./TodoTextInput.react');
 
