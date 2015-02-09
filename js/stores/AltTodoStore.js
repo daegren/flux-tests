@@ -4,11 +4,18 @@ var AltTodoActions = require('app/actions/AltTodoActions');
 
 var assign = require('object-assign');
 
-class AltTodoStore {
+function _areAllComplete(todos) {
+  return Object.keys(todos).reduce(function (memo, id) {
+    return memo && todos[id].complete;
+  }, true);
+}
+
+var AltTodoStore = alt.createStore(class AltTodoStore {
   constructor() {
     this.bindAction(AltTodoActions.create, this.onCreate);
     this.bindAction(AltTodoActions.updateText, this.onUpdateText);
     this.bindAction(AltTodoActions.toggleComplete, this.onToggleComplete);
+    this.bindAction(AltTodoActions.toggleCompleteAll, this.onToggleCompleteAll);
 
     this.todos = {};
   }
@@ -37,12 +44,33 @@ class AltTodoStore {
     this._update(id, {complete: complete});
   }
 
+  onToggleCompleteAll() {
+    if (_areAllComplete(this.todos)) {
+      this._updateAll({complete: false});
+    } else {
+      this._updateAll({complete: true});
+    }
+  }
+
   _update(id, updates) {
     this.todos[id] = assign({}, this.todos[id], updates);
   }
 
+  _updateAll(updates) {
+    Object.keys(this.todos).forEach(function(id) {
+      this._update(id, updates);
+    }, this);
+  }
+
   _validText(text) {
     return (text !== '');
+  }
+
+  _areAllComplete(todos) {
+    Object.keys(todos).forEach(function(id) {
+      if (!this.todos[id].complete) { return false; }
+    });
+    return true;
   }
 
   static getAll() {
@@ -57,12 +85,9 @@ class AltTodoStore {
    * @return {boolean}
    */
   static areAllComplete() {
-    var todos = this.getAll();
-    todos.forEach(function(todo) {
-      if (!todo.complete) { return false; }
-    });
-    return true;
+    var { todos } = this.getState();
+    return _areAllComplete(todos);
   }
-}
+});
 
-module.exports = alt.createStore(AltTodoStore);
+module.exports = AltTodoStore;
