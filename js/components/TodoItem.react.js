@@ -9,7 +9,6 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var TodoActions = require('../actions/TodoActions');
 var AltTodoActions = require('app/actions/AltTodoActions');
 var TodoTextInput = require('./TodoTextInput.react');
 
@@ -92,7 +91,7 @@ var TodoItem = React.createClass({
   },
 
   _onDestroyClick: function() {
-    TodoActions.destroy(this.props.todo.id);
+    AltTodoActions.destroy(this.props.todo.id);
   }
 
 });

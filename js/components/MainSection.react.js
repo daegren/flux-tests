@@ -9,7 +9,6 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var TodoActions = require('../actions/TodoActions');
 var AltTodoActions = require('app/actions/AltTodoActions');
 var TodoItem = require('./TodoItem.react');
 

@@ -16,6 +16,7 @@ var AltTodoStore = alt.createStore(class AltTodoStore {
     this.bindAction(AltTodoActions.updateText, this.onUpdateText);
     this.bindAction(AltTodoActions.toggleComplete, this.onToggleComplete);
     this.bindAction(AltTodoActions.toggleCompleteAll, this.onToggleCompleteAll);
+    this.bindAction(AltTodoActions.destroy, this.onDestroy);
 
     this.todos = {};
   }
@@ -50,6 +51,11 @@ var AltTodoStore = alt.createStore(class AltTodoStore {
     } else {
       this._updateAll({complete: true});
     }
+  }
+
+  onDestroy(id) {
+    console.log('Alt: TodoStore.onDestroy: ', id);
+    delete this.todos[id];
   }
 
   _update(id, updates) {
